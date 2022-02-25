@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打字效果</title>
+    <style>
+        .wrapper {
+            display: flex;
+        }
+
+        .typing-demo {
+            /* 必须设置宽度(一个中文汉子符号占2个字符) ch数字0的宽度 */
+            width: 40ch;
+            animation: typing 4s steps(200, end);
+            /* , blink .5s step-end infinite alternate; */
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid;
+            font-family: monospace;
+            font-size: 2em;
+        }
+
+        .typing-demo:target {
+            background-color: red;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        div:target {
+            background-color: red;
+        }
+
+        /* 滚动条背景页面高度 */
+        ::-webkit-scrollbar {
+            background-color: red;
+            width: 20px;
+        }
+
+        /* 滚动条样式所有 */
+        ::-webkit-scrollbar-track {
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        /* 当前滚动的样式 */
+        ::-webkit-scrollbar-thumb {
+            border: 1px solid black;
+            background-color: aqua;
+        }
+
+        .tooltip {
+            position: relative;
+            border-bottom: 1px dotted black;
+        }
+
+        /* Tooltip box */
+        .tooltip:before {
+            content: attr(data-tool1);
+            position: absolute;
+            width: 100px;
+            background-color: #062B45;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            line-height: 1.2;
+            border-radius: 6px;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity .6s;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            font-size: 0.75em;
+            visibility: hidden;
+        }
+
+        /* Tooltip arrow */
+        .tooltip:after {
+            content: "";
+            position: absolute;
+            bottom: 75%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            opacity: 0;
+            transition: opacity .6s;
+            border-color: #062B45 transparent transparent transparent;
+            visibility: hidden;
+        }
+
+        .tooltip:hover:before,
+        .tooltip:hover:after {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        HTML/CSS tooltip
+    </h1>
+
+    <p>
+        Hover <span class="tooltip" data-tool1="Tooltip Content">Here</span> to see the tooltip.
+    </p>
+
+    <p>
+        You can also hover <span class="tooltip" data-tool1="This is another Tooltip Content">here</span> to see
+        another example.
+    </p>
+    <div class="wrapper">
+        <div class="typing-demo">
+            只适用于单行，多行还未调试。This is a typing demo. 这是一个打字演示。
+        </div>
+    </div>
+    <a href="#aaa">888888</a>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa" style="background-color: aqua;height: 200px;
+    scroll-snap-align: center;">ddddddddd</div>
+    <div id="aaa" style="background-color: rgb(145, 115, 255);height: 150px;
+    scroll-snap-align: center;">dd1111ddddddd</div>
+    <div id="aaa" style="background-color: rgb(140, 255, 200);height: 50px;
+    scroll-snap-align: center;">dd11111ddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+    <div id="aaa">ddddddddd</div>
+</body>
+
+</html>

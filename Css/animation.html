@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo animation</title>
+    <style>
+        .warp{
+            margin: 200px;
+            position: relative;
+            perspective: 800px;
+        }
+        .box{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+        }
+        .box:hover{
+            animation: framesRotate 5s linear infinite;
+        }
+        @keyframes framesRotate {
+            0% {transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);}
+            100% {transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);}
+        }
+        .item{
+            width: 100%;
+            height: 100%;
+            font-size: 36px;
+            text-align: center;
+            line-height: 200px;
+            position: absolute;
+            opacity: .3;
+        }
+        .front{
+            background-color: rgb(255, 193, 112);
+            transform: translateZ(100px);
+        }
+        .top{
+            background-color: rgb(180, 255, 95);
+            transform: rotateX(90deg) translateY(-100px);
+            transform-origin: top center;
+        }
+        .right{
+            background-color: rgb(95, 255, 247);
+            transform: rotateY(90deg) translateX(100px);
+            transform-origin: right center;
+        }
+        .bottom{
+            background-color: rgb(236, 95, 255);
+            transform: rotateX(-90deg) translateY(100px);
+            transform-origin: bottom center;
+        }
+        .left{
+            background-color: rgb(124, 95, 255);
+            transform: rotateY(-90deg) translateX(-100px);
+            transform-origin: left center;
+        }
+        .after{
+            background-color: rgb(255, 252, 95);
+            transform: translateZ(-100px);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="warp">
+        <div class="box">
+            <div class="item front">前</div>
+            <div class="item top">上</div>
+            <div class="item right">右</div>
+            <div class="item bottom">下</div>
+            <div class="item left">左</div>
+            <div class="item after">后</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,462 @@
+// 1. 从“box size:content box”更改为“width”不受“padding”或“border”的影响。
+
+@html-selector: html;
+
+
+
+@{html-selector},
+body {
+    .square(100%);
+}
+
+// 删除IE10中文本输入控件自带清除按钮
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+
+// Document
+// 1. 从“box size:content box”更改为“width”不受“padding”或“border”的影响`
+// 2. 更改所有浏览器中的默认字体系列。
+// 3. 在所有浏览器中更正行高度
+// 4. 防止在Windows Phone和iOS上的IE中更改方向后调整字体大小。
+// 5. 设置@viewport会导致滚动条与IE11和Edge中的内容重叠，因此我们强制使用非重叠、非自动隐藏的滚动条来抵消。
+// 6. 将默认的轻触高亮显示更改为在iOS中完全透明。
+*,
+*::before,
+*::after {
+    box-sizing: border-box; // 1
+}
+
+@{html-selector} {
+    font-family: sans-serif; // 2
+    line-height: 1.15; // 3
+    -webkit-text-size-adjust: 100%; // 4
+    -ms-text-size-adjust: 100%; // 4
+    -ms-overflow-style: scrollbar; // 5
+    -webkit-tap-highlight-color: fade(@black, 0%); // 6
+}
+
+// 在某些情况下，IE10+不支持'<meta name=“viewport”>`
+@-ms-viewport {
+    width: device-width;
+}
+
+// Body
+//
+// 1. 删除所有浏览器中的页边距
+// 2. 删除所有浏览器中的边距作为最佳做法，应用默认的“正文背景”。
+
+body {
+    margin: 0; // 1
+    color: @text-color;
+    font-size: @font-size-base;
+    font-family: @font-family;
+    font-variant: @font-variant-base;
+    line-height: @line-height-base;
+    background-color: @body-background; // 2
+    font-feature-settings: @font-feature-settings-base;
+}
+
+// 在无法通过键盘访问的元素上取消焦点轮廓。
+// 这可以防止在可能仍对指针事件作出响应的元素周围出现不需要的焦点轮廓。
+[tabindex='-1']:focus {
+    outline: none !important;
+}
+
+// 内容分组
+// 1. 在Firefox中添加正确的框大小。
+// 2. 在边缘和IE中显示溢出。
+hr {
+    box-sizing: content-box; // 1
+    height: 0; // 1
+    overflow: visible; // 2
+}
+
+// 排版
+
+// 删除标题的上边距
+// 默认情况下，`<h1>`-`<h6>`全部接收上下边距。我们把上页边距去掉，以便在类型范围内更容易控制，因为它避免了边距崩溃。
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: @heading-color;
+    font-weight: 500;
+}
+
+// 重置段落的页边距
+
+// 类似地，'<p>`上的上边距也会重置。但是，我们还将下边距重置为使用“em”单位而不是“em”。
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+// 缩写
+// 1.删除Firefox 39-中的下边框。
+// 2.在Chrome、Edge、IE、Opera和Safari中添加正确的文本装饰。
+// 3.添加显式游标以指示已更改的行为。
+// 4.将行为复制到工具提示插件的data-*属性
+
+abbr[title],
+abbr[data-original-title] {
+    // 4
+    text-decoration: underline; // 2
+    text-decoration: underline dotted; // 2
+    border-bottom: 0; // 1
+    cursor: help; // 3
+}
+
+address {
+    margin-bottom: 1em;
+    font-style: normal;
+    line-height: inherit;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'],
+textarea {
+    -webkit-appearance: none;
+}
+
+ol,
+ul,
+dl {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+    margin-bottom: 0;
+}
+
+dt {
+    font-weight: 500;
+}
+
+dd {
+    margin-bottom: 0.5em;
+    margin-left: 0; // 撤销浏览器的默认样式
+}
+
+blockquote {
+    margin: 0 0 1em;
+}
+
+dfn {
+    font-style: italic; // 在android4.3中添加正确的字体样式-
+}
+
+b,
+strong {
+    font-weight: bolder; // 在Chrome、Edge和Safari中添加正确的字体大小
+}
+
+small {
+    font-size: 80%; // 在所有浏览器中添加正确的字体大小
+}
+
+// 防止“sub”和“sup”元素影响所有浏览器中的行高。
+
+sub,
+sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+// 链接
+a {
+    color: @link-color;
+    text-decoration: @link-decoration;
+    background-color: transparent; // 删除IE 10中活动链接的灰色背景。
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    -webkit-text-decoration-skip: objects; // 在iOS 8+和Safari 8+中删除链接下划线中的空白。
+
+    &:hover {
+        color: @link-hover-color;
+    }
+
+    &:active {
+        color: @link-active-color;
+    }
+
+    &:active,
+    &:hover {
+        text-decoration: @link-hover-decoration;
+        outline: 0;
+    }
+
+    // https://github.com/ant-design/ant-design/issues/22503
+    &:focus {
+        text-decoration: @link-focus-decoration;
+        outline: @link-focus-outline;
+    }
+
+    &[disabled] {
+        color: @disabled-color;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+// 代码
+pre,
+code,
+kbd,
+samp {
+    font-size: 1em; // 更正所有浏览器中奇怪的'em'字体大小。
+    font-family: @code-family;
+}
+
+pre {
+    // 删除浏览器默认上边距
+    margin-top: 0;
+    // 重置浏览器默认值“1em”以使用“em`
+    margin-bottom: 1em;
+    // 不允许内容外泄
+    overflow: auto;
+}
+
+// 数字
+
+figure {
+    // 应用一致的利润策略（与我们的类型风格相匹配）
+    margin: 0 0 1em;
+}
+
+// 图像和内容
+img {
+    vertical-align: middle;
+    border-style: none; // 删除图片边框内的链接在IE 10-
+}
+
+svg:not(:root) {
+    overflow: hidden; // 在IE中隐藏溢出
+}
+
+// 在支持“touch action”CSS属性的触摸设备上避免300毫秒的点击延迟。
+//
+// 特别是，与大多数其他浏览器不同的是，当存在`<meta name=“viewport”content=“width=device width”>`时，触摸设备上的Windows10和IE Mobile 10-11上的IE11+Edge不会删除单击延迟。
+// 但是，它们确实支持通过“touch-action:manipulation”移除点击延迟。
+// * https://getbootstrap.com/docs/4.0/content/reboot/#click-delay-optimization-for-touch
+// * http://caniuse.com/#feat=css-touch-action
+// * https://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay
+
+a,
+area,
+button,
+[role='button'],
+input:not([type='range']),
+label,
+select,
+summary,
+textarea {
+    touch-action: manipulation;
+}
+
+//
+// 表格
+//
+
+table {
+    border-collapse: collapse; // 防止双重边界
+}
+
+caption {
+    padding-top: 0.75em;
+    padding-bottom: 0.3em;
+    color: @text-color-secondary;
+    text-align: left;
+    caption-side: bottom;
+}
+
+th {
+    //通过继承“<body>”或具有集合“text align”的最近父级来匹配默认的“<td>”对齐方式
+    text-align: inherit;
+}
+
+//
+// 表单
+//
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    margin: 0; // 删除Firefox和Safari中的边距
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+button,
+input {
+    overflow: visible; // 在边缘显示溢出
+}
+
+button,
+select {
+    text-transform: none; // 删除Firefox中文本转换的继承
+}
+
+// 1. 防止WebKit错误（2）破坏android4中本机的“audio”和“video”控件。
+// 2. 更正在iOS和Safari中无法设置可单击类型的样式。
+button,
+@{html-selector} [type="button"],
+/* 1 */
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button; // 2
+}
+
+// 从Firefox中删除内边框和填充，但不要像Normalize那样恢复轮廓。
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+    box-sizing: border-box; // 1. 在IE 10中添加正确的盒子尺寸-
+    padding: 0; // 2. 去掉IE 10中的衬垫-
+}
+
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+input[type='month'] {
+    // 删除临时输入的默认外观，以避免出现mobileSafari错误，因为设置自定义行高可以防止文本在输入中垂直居中。
+    // See https://bugs.webkit.org/show_bug.cgi?id=139848
+    // and https://github.com/twbs/bootstrap/issues/11266
+    -webkit-appearance: listbox;
+}
+
+textarea {
+    overflow: auto; // 删除IE中默认的垂直滚动条
+    // textArea实际上应该只垂直调整大小，这样就不会破坏（水平）容器.
+    resize: vertical; //horizontal 水平调整大小
+}
+
+fieldset {
+    // 浏览器在字段集上设置默认的“min width:min content；”，这与默认情况下具有“min width:0；”的“<div>`s”不同。所以我们重新设置它以确保字段集的行为更像一个标准块元素。
+    // See https://github.com/twbs/bootstrap/issues/12359
+    // and https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements
+    min-width: 0;
+    margin: 0;
+    // 重置字段集的默认大纲行为，使其不影响页面布局.
+    padding: 0;
+    border: 0;
+}
+
+// 1. 更正边缘和IE中的文字环绕
+// 2. 更正IE中“fieldset”元素的颜色继承。
+legend {
+    display: block;
+    width: 100%;
+    max-width: 100%; // 1
+    margin-bottom: 0.5em;
+    padding: 0;
+    color: inherit; // 2
+    font-size: 1.5em;
+    line-height: inherit;
+    white-space: normal; // 1
+}
+
+progress {
+    vertical-align: baseline; // 在Chrome、Firefox和Opera中添加正确的垂直对齐方式
+}
+
+// 修正Chrome中的感应和衰减按钮的光标样式。
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+    height: auto;
+}
+
+[type='search'] {
+    // 这将覆盖iOS中搜索输入上额外的圆角，以便我们的“.form control”类可以正确地设置它们的样式。请注意，这不能简单地添加到“.form control”，因为它不够具体。了解详情, see
+    // https://github.com/twbs/bootstrap/issues/11586.
+    outline-offset: -2px; // 2. 更正Safari中的轮廓样式。
+    -webkit-appearance: none;
+}
+
+//
+// 删除macOS上Chrome和Safari中的内部填充和取消按钮
+//
+
+[type='search']::-webkit-search-cancel-button,
+[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+//
+// 1. 更正在iOS和Safari中无法设置可单击类型的样式。
+// 2. 在Safari中将字体属性更改为“inherit”
+//
+
+::-webkit-file-upload-button {
+    font: inherit; // 2
+    -webkit-appearance: button; // 1
+}
+
+//
+// 正确的元素显示
+//
+
+output {
+    display: inline-block;
+}
+
+summary {
+    display: list-item; // 在所有浏览器中添加正确的显示
+}
+
+template {
+    display: none; // 在IE中添加正确的显示
+}
+
+// 总是隐藏带有“hidden”HTML属性的元素（来自PureCSS）
+// 需要在IE 10-中正确显示
+[hidden] {
+    display: none !important;
+}
+
+mark {
+    padding: 0.2em;
+    background-color: @yellow-1;
+}
+
+::selection {
+    color: @text-color-inverse;
+    background: @text-selection-bg;
+}
+
+// 实用程序类
+.clearfix {
+    .clearfix();
+}
